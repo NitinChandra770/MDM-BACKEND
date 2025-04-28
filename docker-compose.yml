@@ -1,0 +1,24 @@
+
+services:
+  mongo:
+    image: mongo:5 # use arm64v8/mongo:4.4.18 for pi
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  nodeapp:
+    build: .
+    container_name: nodeapp
+    restart: always
+    ports:
+      - "3000:3000" # change if your app uses a different port
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/mdmdb
+    depends_on:
+      - mongo
+
+volumes:
+  mongo-data:
