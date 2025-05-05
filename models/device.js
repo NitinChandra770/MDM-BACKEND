@@ -13,6 +13,8 @@ var deviceTable = new schema({
     deviceStatus : {type:Boolean, default:false},
     deviceLocation : {type:String, default:""},
     lastDeviceOnDateTime : {type:Number, default:0},
+    deviceSSID : {type: String, default:""},
+    serverStatus:{type: String, default:"{}"},
     savingDateTime : Date, //to set from system
     modifiedDateTime : Date //to set from system
 });
