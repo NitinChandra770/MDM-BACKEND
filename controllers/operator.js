@@ -1,5 +1,5 @@
 const Operator = require('../models/operator');
-const moment = require('moment-timezone');
+const { getCurrentDateInIST } = require('../utils/dateUtil');
 
 exports.add = (async (req,res)=>{
 const operatorData = { ...req.body};
@@ -44,6 +44,7 @@ exports.getByOperatorId=(async (req,res)=>{
 
     exports.updateByOperatorId=(async(req,res)=>{
         try{
+            const istDate = getCurrentDateInIST();
             const operator = await Operator.findOneAndUpdate({operatorId:req.query.operatorId},{
                 $set:
                 {...req.body,

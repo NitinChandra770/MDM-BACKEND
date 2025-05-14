@@ -1,6 +1,6 @@
 const Device = require('../models/device');
 const { getCurrentDateInIST } = require('../utils/dateUtil');
-const istDate = getCurrentDateInIST();
+
 
 exports.add = (async (req,res)=>{
 try{
@@ -20,7 +20,6 @@ console.log('error value is ',err);
 });
 
 exports.getAll=(async (req,res)=>{
-    console.log('istDate value is ',istDate);
 try{
 const devices = await Device.find({});
 res.status(200).send(devices);
@@ -80,6 +79,7 @@ res.status(500).send({error: `error while deleting device! ${err.message}`});
 
 exports.updateByAndroidId=(async (req,res)=>{
     try{
+        const istDate = getCurrentDateInIST();
         const device = await Device.findOneAndUpdate({androidId: req.query.androidId}, {
             $set: {
               ...req.body,
@@ -90,7 +90,6 @@ exports.updateByAndroidId=(async (req,res)=>{
             return res.status(404).send({error: `Device not found!`});
         }
         res.status(200).send(device);
-
     }catch(err){
         res.status(500).send({error: `error while updating device! ${err.message}`});
     }
@@ -98,6 +97,7 @@ exports.updateByAndroidId=(async (req,res)=>{
 
 exports.updateByBusServerId=(async (req,res)=>{
     try{
+         const istDate = getCurrentDateInIST();
         const device = await Device.findOneAndUpdate({busServerId: req.query.busServerId}, {
             $set: {
               ...req.body,
@@ -116,6 +116,7 @@ exports.updateByBusServerId=(async (req,res)=>{
 exports.updateBulkDeviceByBusServerId=(async (req,res)=>{
 try{
     const updates = req.body.deviceUpdateData;
+     const istDate = getCurrentDateInIST();
 
     if (!Array.isArray(updates)) {
         return res.status(400).send({ error: "deviceUpdateData must be an array..." });
@@ -147,6 +148,7 @@ try{
 exports.updateBulkDeviceByAndroidId = (async (req,res)=>{
     try{
         const updates = req.body.deviceUpdateData;
+        const istDate = getCurrentDateInIST();
         if(!Array.isArray(updates)){
             return res.status(400).send({err: 'deviceUpdateData must be an array!'});
         }

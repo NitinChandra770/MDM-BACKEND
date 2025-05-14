@@ -1,5 +1,5 @@
 const Bus = require('../models/bus');
-const moment = require('moment-timezone');
+const { getCurrentDateInIST } = require('../utils/dateUtil');
 
 exports.add = (async (req,res)=>{
 const busData = { ...req.body};
@@ -57,6 +57,7 @@ exports.getByBusServerId=(async (req,res)=>{
 
         exports.updateByBusServerId = (async (req,res)=>{
         try{
+           const istDate = getCurrentDateInIST();
            const bus = await Bus.findOneAndUpdate({busServerId: req.query.busServerId},{
             $set:
             {...req.body,

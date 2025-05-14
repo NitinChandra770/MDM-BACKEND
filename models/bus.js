@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { getCurrentDateInIST } = require('../utils/dateUtil');
+const { getCurrentDateInIST, formatDeviceDatesToIST } = require('../utils/dateUtil')
 var schema = mongoose.mongoose.Schema;
 
 var busTable = new schema({
@@ -45,6 +45,12 @@ busTable.pre('save', function (next) {
     this.modifiedDateTime = istDate;
     }
     next();
+});
+
+busTable.set('toJSON', {
+    transform: function (doc, ret) {
+        return formatDeviceDatesToIST(ret);
+    }
 });
 
 module.exports = mongoose.model('bus', busTable);

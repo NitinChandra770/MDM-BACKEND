@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { getCurrentDateInIST } = require('../utils/dateUtil');
+const { getCurrentDateInIST, formatDeviceDatesToIST } = require('../utils/dateUtil')
 var schema = mongoose.mongoose.Schema;
 
 var operatorTable = new schema({
@@ -39,6 +39,12 @@ operatorTable.pre('save', function (next) {
     this.modifiedDateTime = istDate;
     }
     next();
+});
+
+operatorTable.set('toJSON', {
+    transform: function (doc, ret) {
+        return formatDeviceDatesToIST(ret);
+    }
 });
 
 module.exports = mongoose.model('operator', operatorTable);
