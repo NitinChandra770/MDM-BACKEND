@@ -4,6 +4,10 @@ const { getCurrentDateInIST } = require('../utils/dateUtil');
 
 exports.add = (async (req,res)=>{
 try{
+const exisitngBusServerId = await Device.findOne({busServerId:req.body.busServerId});
+if(!exisitngBusServerId){
+  return res.status(404).send({message: `busServerId ${req.body.busServerId} not exist!`});
+}
 const exisitngDevice = await Device.findOne({androidId:req.body.androidId});
 if(exisitngDevice){
 Object.assign(exisitngDevice,req.body);

@@ -8,8 +8,8 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
-      - /opt/mongo/mongod.conf:/etc/mongod.conf
-    command: ["--config", "/etc/mongod.conf"]  
+      - /opt/mongo/mongod.conf:/etc/mongod.conf   # add this in production
+    command: ["--config", "/etc/mongod.conf"]     # add this in production
 
   nodeapp:
     build: .

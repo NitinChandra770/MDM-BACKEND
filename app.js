@@ -12,6 +12,7 @@ var deviceRouter = require('./routes/device');
 var oneSignalRouter = require('./routes/oneSignal');
 var busRouter = require('./routes/bus');
 var operatorRouter = require('./routes/operator');
+var touringTalkiesPassengerDetailsRouter = require('./routes/touringTalkiesPassengerDetails');
 
 var app = express();
 
@@ -30,6 +31,7 @@ app.use('/device',deviceRouter);
 app.use('/oneSignal',oneSignalRouter);
 app.use('/bus',busRouter);
 app.use('/operator', operatorRouter);
+app.use('/touringTalkiesPassengerDetails',touringTalkiesPassengerDetailsRouter);
 
 
 
